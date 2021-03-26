@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		body{
+			background: url('fondo.png') fixed no-repeat;
+			background-size: cover;
+		}
+		.per{
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			width: 100%;
+			height: 100%;
+			background: url('fondo.png') fixed no-repeat;
+			background-size: cover;
+			font-size: 100px;
+			display: none;
+		}
+		.playzone{
+			position: absolute;
+			top: 60px;
+			left: 990px;
+			width: 300px;
+			height: 580px;
+			background-color: lightgreen;
+			box-shadow: 10px 10px 10px black;
+			opacity: 0.5;
+		}
+		.player{
+			position: absolute;
+			top: 70px;
+			left: 1000px;
+			width: 70px;
+			height: 70px;
+			background: url('water.png');
+			background-size: cover;
+						border-style: solid;
+			border-color: black;
+		}
+		.e1{
+			position: absolute;
+			width: 170px;
+			height: 170px;
+			background: url('fireball.png');
+			background-size: cover;
+			border-style: solid;
+			border-color: black;
+			box-shadow: 10px 10px 10px black;
+		}
+		.re{
+			position: absolute;
+			top: 10px;
+			left: 560px;
+			font-size: 40px;
+			border-radius: 10px;
+			background: linear-gradient(to bottom, lightblue 0%, blue 100%);
+			box-shadow: 10px 10px 10px black;
+			z-index: 15;
+		}
+		.re:hover{background: linear-gradient(to bottom, blue 0%, lightblue 100%)}
+	</style>
+	<script type="text/javascript">
+		var x;
+		var x1=40;
+		var x2=40;
+		var y;
+		var y1;
+		var s=0;
+	</script>
+			<audio src="faded.mp3" preload loop id="home"></audio>
+</head>
+<body onmousemove="position(event)" onload="carga()" onkeypress="teclado()">
+	<div class="playzone" onclick="mover()"></div>
+<div class="player"></div>
+<div class="e1"></div>
+<div class="e2"></div>
+<div class="e3"></div>
+<div class="e4"></div>
+<div class="e5"></div>
+<div class="e6"></div>
+<div class="e7"></div>
+<div id="asd1">Tiempo:</div>
+<div id="asd2"><br>Puntos:</div>
+<div class="per" id="asd"><br>Perdiste! Total Puntos: <br>Tiempo Aguantado:</div>
+<div class="re" onclick="reset()">Reiniciar</div>
+<script type="text/javascript">
+	vec=[];
+	agf=setInterval(contar,1000);
+	function carga(){
+		setTimeout(ata,1);	
+	}
+
+	function position(event){
+	x = event.clientX; 
+    y = event.clientY; 
+
+}
+function mover(){
+	document.getElementById('home').play();
+	fx = x;
+	fy = y;
+	document.querySelector(".player").style.transition=0.2+"s";
+		if (fx>=1220) {
+		fx=fx-70;
+	}
+			if (fy>=560) {
+		fy=fy-70;
+	}
+	document.querySelector(".player").style.top=fy+"px";
+	document.querySelector(".player").style.left=fx+"px";
+}
+function ata(){
+	var orden = Math.floor(Math.random() * ((5+1) - 1) + 1);;
+	if (orden==1) {
+		na=setInterval(or1,1)
+	document.querySelector(".e1").style.top=60+"px";
+	document.querySelector(".e1").style.left=40+"px";
+	y1=60;
+	}
+	if (orden==2) {
+		na=setInterval(or1,1)
+	document.querySelector(".e1").style.top=160+"px";
+	document.querySelector(".e1").style.left=40+"px";
+	y1=160;
+	}
+	if (orden==3) {
+				na=setInterval(or1,1)
+	document.querySelector(".e1").style.top=260+"px";
+	document.querySelector(".e1").style.left=40+"px";
+	y1=260;
+	}
+	if (orden==4) {
+				na=setInterval(or1,1)
+	document.querySelector(".e1").style.top=360+"px";
+	document.querySelector(".e1").style.left=40+"px";
+	y1=360;
+	}
+		if (orden==5) {
+				na=setInterval(or1,1)
+	document.querySelector(".e1").style.top=460+"px";
+	document.querySelector(".e1").style.left=40+"px";
+	y1=460;
+	}
+}
+function or1(){
+	var h = y1+170;
+	var h1 = x1+160;
+	var h2 = fy+70;
+	      document.querySelector(".e1").style.display="block"; 
+	x1=x1+1;
+   document.querySelector(".e1").style.left=x1+"px"; 
+   document.querySelector(".e1").style.transition=0.1+"s";
+   if (x1==1200) {
+   	x1=40;
+   	ata();	
+   	clearInterval(na);
+      document.querySelector(".e1").style.display="none"; 	
+   }
+   if (fy>=y1&&fy<=h&&h1==fx) {
+   	document.querySelector(".per").style.transition=0.5+"s";
+	document.querySelector(".per").style.display="block";	
+	    						var suma = 0;
+        vec.forEach (function(numero){
+        suma += numero;
+    });
+        asd.innerHTML = '<br><br>Perdiste! Total Puntos: '+ suma + '<br>Tiempo Aguantado: '+s+'Seg';
+        clearInterval(agf);
+   }
+      if (h2>=y1&&h2<=h&&h1==fx) {
+   	document.querySelector(".per").style.transition=0.5+"s";
+	document.querySelector(".per").style.display="block";	
+	    						var suma = 0;
+        vec.forEach (function(numero){
+        suma += numero;
+    });
+        asd.innerHTML = '<br><br>Perdiste! Total Puntos: '+ suma + '<br>Tiempo Aguantado: '+s+'Seg';
+                clearInterval(agf);
+   }
+}
+function teclado(){
+		var h = y1+170;
+			var h2 = fy+70;
+	if(event.code=="KeyA"&&fy>=y1&&fy<=h){
+		x1=40;
+   	ata();	
+   	clearInterval(na);
+      document.querySelector(".e1").style.display="none"; 	
+      vec.push(20);
+      	    						var suma = 0;
+        vec.forEach (function(numero){
+        suma += numero;
+    });
+      asd2.innerHTML = '<br>Puntos:' + suma;
+  }
+	if(event.code=="KeyA"&&h2>=y1&&h2<=h){
+		x1=40;
+   	ata();	
+   	clearInterval(na);
+      document.querySelector(".e1").style.display="none"; 	
+      vec.push(20);
+      	    						var suma = 0;
+        vec.forEach (function(numero){
+        suma += numero;
+    });
+      asd2.innerHTML = '<br>Puntos:' + suma;
+  }
+}
+	function contar(){
+		s=s+1;
+		asd1.innerHTML = 'Tiempo:' + s;
+	}
+	function reset(){
+		window.location.href = "index.html"		
+	}
+</script>
+</body>
+</html>
